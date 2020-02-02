@@ -1,0 +1,49 @@
+﻿@page "/rPrestamos"
+<h3>RPrestamos</h3>
+@using ProyectoParcialBeta.BLL;
+@using ProyectoParcialBeta.Data;
+
+<p>Guardado: @listo</p>
+<EditForm Model="@prestamos" OnInvalidSubmit="@GuardarButton">
+    <div class="form-group">
+        <label for="FechaDate">Fecha: </label>
+        <InputDate id="FechaDate" @bind-Value="@prestamos.Fecha" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="MontoNumber">Monto: </label>
+        <InputNumber id="MontoNumber" @bind-Value="@prestamos.Monto" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="SemanasNumber">Semanas: </label>
+        <InputNumber id="SemanasNumber" @bind-Value="@prestamos.Semanas" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="ConceptoText">Concepto: </label>
+        <InputText id="ConceptoText" @bind-Value="@prestamos.Concepto" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success btn-lg mb-4 mr-md-3 ">Guardar</button>
+    <input id="Button1" type="submit" value="button" />
+</EditForm>
+
+@code {
+
+    Prestamos prestamos = new Prestamos();
+    Repositorio<Prestamos> RP = new Repositorio<Prestamos>();
+    int listo = 0;
+    protected override void OnInitialized(){
+        prestamos = new Prestamos();
+    }
+    private void GuardarButton()
+    {
+        try
+        {
+            listo = 1;
+            RP.Guardar(prestamos);
+        }catch(Exception )
+        {
+            throw;
+        }
+
+    }
+}

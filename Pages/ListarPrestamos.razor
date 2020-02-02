@@ -1,0 +1,47 @@
+﻿@page "/listarPrestamos"
+@using ProyectoParcialBeta.BLL;
+@using ProyectoParcialBeta.Data;
+@using ProyectoParcialBeta.Pages;
+
+<h3>ListarPrestamos</h3>
+
+
+<EditForm Model="@prestamos"  OnValidSubmit="@Listar">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Semanas</th>
+                <th>Concepto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prestar in listado)
+            {
+                <tr>
+                    <td>@prestar.Fecha</td>
+                    <td>@prestar.Monto</td>
+                    <td>@prestar.Semanas</td>
+                    <td>@prestar.Concepto</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</EditForm>
+    
+}
+
+
+@code{
+    Prestamos prestamos = new Prestamos();
+    List<Prestamos> listado { get; set; }
+    Repositorio<Prestamos> prestomR = new Repositorio<Prestamos>();
+    public void Listar()
+    {
+        listado = prestomR.GetList(p=>true);
+    }
+
+
+
+}
